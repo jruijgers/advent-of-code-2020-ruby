@@ -30,3 +30,25 @@ bags.keys.each do |bag|
 end
 
 puts "Day  7.1: valid bag colors is #{valid_bags.size.to_s.green}"
+
+# Part 2
+def how_many_bags(bag, bags)
+  other_bags = bags[bag]
+
+  if other_bags.include?("no other bags.")
+    0
+  else
+    total = 0
+    other_bags.each do |other_bag|
+      number = other_bag[0, other_bag.index(" ")].to_i
+      total += number
+
+      other_bag_color = other_bag[other_bag.index(" ") + 1, other_bag.length].gsub(/ bags?.?/, "")
+      total += number * how_many_bags(other_bag_color, bags)
+    end
+    total
+  end
+end
+
+number_of_bags = how_many_bags("shiny gold", bags)
+puts "Day  7.2: number of bags inside mine is #{number_of_bags.to_s.green}"
