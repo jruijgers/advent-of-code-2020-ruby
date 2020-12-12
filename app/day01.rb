@@ -15,13 +15,12 @@ while found_number == nil && index < numbers.size
 
   index += 1
 end
-
-puts "found #{found_number} & #{2020 - found_number}. Result = #{found_number * (2020 - found_number)}"
+puts "Day  1.1: found #{found_number} & #{2020 - found_number}. Result = #{found_number * (2020 - found_number)}"
 
 # Part 2
+result = []
 numbers.each_index do |x|
   number1 = numbers[x]
-
   numbers.each_index do |y|
     next if y <= x
 
@@ -32,10 +31,12 @@ numbers.each_index do |x|
       next if z <= y
 
       number3 = numbers[z]
-
       if number1 + number2 + number3 == 2020
-        puts "found #{number1}, #{number2}, #{number3}. Result = #{number1 * number2 * number3}"
+        result[0] = number1
+        result[1] = number2
+        result[2] = number3
       end
     end
   end
 end
+puts "Day  1.2: found #{result[0]}, #{result[1]}, #{result[2]}. Result = #{result[0] * result[1] * result[2]}"
