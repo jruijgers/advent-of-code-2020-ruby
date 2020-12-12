@@ -1,7 +1,7 @@
 require "colorize"
 
 hill = []
-File.open('../input/day-03.txt').each { |line| hill << line.strip }
+File.open('../input/day03.txt').each { |line| hill << line.strip }
 
 def tree_hits(hill, pos_increase, line_increase = 1)
   pos = 0

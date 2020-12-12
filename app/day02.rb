@@ -1,7 +1,7 @@
 require "colorize"
 
 passwords = []
-File.open('../input/day-02.txt').each do |line|
+File.open('../input/day02.txt').each do |line|
   lineparts = line.split(":")
   passwords << {lineparts[1].strip => lineparts[0].split}
 end

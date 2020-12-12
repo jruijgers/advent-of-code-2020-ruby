@@ -2,7 +2,7 @@ require "colorize"
 
 # Part 1
 numbers = Array.new
-File.open('../input/day-01.txt').each { |line| numbers << line.to_i }
+File.open('../input/day01.txt').each { |line| numbers << line.to_i }
 
 found_number = nil
 index = 0
