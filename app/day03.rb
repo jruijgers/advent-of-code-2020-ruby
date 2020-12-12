@@ -19,7 +19,7 @@ end
 
 # Part 1
 trees = tree_hits(hill, 3)
-puts "Day  3.1: hit #{trees.to_s.green}"
+puts "Day  3.1: hit #{trees.to_s.green} trees"
 
 # part 1
 trees1 = tree_hits(hill, 1)

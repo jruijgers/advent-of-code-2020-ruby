@@ -1,3 +1,5 @@
+require "colorize"
+
 passwords = []
 File.open('../input/day-02.txt').each do |line|
   lineparts = line.split(":")
@@ -13,7 +15,7 @@ def validate_password(password, rules)
 end
 
 valid_passwords = passwords.select { |v| validate_password(v.first[0], v.first[1]) }
-puts "Day  2.1: #{valid_passwords.length} valid passwords"
+puts "Day  2.1: #{valid_passwords.length.to_s.green} valid passwords"
 
 # Part 2
 def toboggan_valid_password(password, rules)
@@ -26,4 +28,4 @@ def toboggan_valid_password(password, rules)
 end
 
 valid_passwords = passwords.select { |v| toboggan_valid_password(v.first[0], v.first[1]) }
-puts "Day  2.2: #{valid_passwords.length} valid passwords"
+puts "Day  2.2: #{valid_passwords.length.to_s.green} valid passwords"
