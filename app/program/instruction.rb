@@ -6,5 +6,17 @@ module Program
       @type = type
       @value = value
     end
+
+    def update
+      if type == "jmp"
+        @type = "nop"
+      elsif type == "nop"
+        @type = "jmp"
+      end
+    end
+
+    def to_s
+      "#{type} #{value}"
+    end
   end
 end

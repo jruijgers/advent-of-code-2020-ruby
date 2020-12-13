@@ -10,4 +10,25 @@ File.open("../input/day08.txt").each do |line|
 end
 
 # Part 1
-puts "Day  8.1: accumulator is #{program.execute.to_s.green}"
+program.execute
+puts "Day  8.1: accumulator is #{program.accumulator.to_s.green}"
+
+# Part 2
+result = nil
+instruction_counter = 0
+until result
+  instruction = program.instructions[instruction_counter]
+  instruction_counter += 1
+
+  next if instruction.type == "acc"
+
+  instruction.update
+
+  if program.execute
+    result = program.accumulator
+  else
+    instruction.update
+  end
+end
+
+puts "Day  8.2: updated accumulator is #{result.to_s.green}"
