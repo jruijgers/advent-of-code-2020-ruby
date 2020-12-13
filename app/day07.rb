@@ -10,18 +10,23 @@ File.open("../input/day07.txt").each do |line|
 end
 
 # Part 1
-def can_contain_shiny_gold_bag(bag, bags)
+def can_contain_shiny_gold_bag(bag, bags, can_contain_it = {})
+  return can_contain_it[bag] if can_contain_it.has_key?(bag)
+
   other_bags = bags[bag]
   return false if other_bags.nil?
+
   other_bags = other_bags.map { |s| s[s.index(" ") + 1, s.length].gsub(/ bags?.?/, "") }
 
+  can_contain = false
   if other_bags.include?("shiny gold")
-    true
+    can_contain = true
   else
-    can_contain = false
-    other_bags.each { |other_bag| can_contain |= can_contain_shiny_gold_bag(other_bag, bags)}
-    can_contain
+    other_bags.each { |other_bag| can_contain |= can_contain_shiny_gold_bag(other_bag, bags, can_contain_it) }
   end
+  can_contain_it[bag] = can_contain
+
+  can_contain
 end
 
 valid_bags = []
