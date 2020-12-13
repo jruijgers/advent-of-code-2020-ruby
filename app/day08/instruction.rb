@@ -1,4 +1,4 @@
-module Program
+module Day08
   class Instruction
     attr_reader :type, :value
 

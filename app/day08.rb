@@ -1,12 +1,12 @@
 require "colorize"
-require "./program/program"
-require "./program/instruction"
+require "./day08/program"
+require "./day08/instruction"
 
-program = Program::Program.new
+program = Day08::Program.new
 File.open("../input/day08.txt").each do |line|
   line.strip!
   parts = line.split(" ")
-  program.add_instruction(Program::Instruction.new(parts[0], parts[1].to_i))
+  program.add_instruction(Day08::Instruction.new(parts[0], parts[1].to_i))
 end
 
 # Part 1

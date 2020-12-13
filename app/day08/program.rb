@@ -1,4 +1,4 @@
-module Program
+module Day08
   class Program
     attr_reader :accumulator, :instructions
 
