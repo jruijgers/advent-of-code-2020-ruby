@@ -25,4 +25,29 @@ def find_wrong_one(numbers, preamble)
   return -1
 end
 
-puts "Day  09.1: first wrong one: #{find_wrong_one(numbers, 25).to_s.green}"
+wrong_number = find_wrong_one(numbers, 25)
+puts "Day  9.1: first wrong one: #{wrong_number.to_s.green}"
+
+# Part 2
+def find_set(total, numbers)
+  start_pos = 0
+  current_pos = 0
+  sum = 0
+
+  while sum < total
+    sum += numbers[current_pos]
+    current_pos += 1
+
+    if sum > total
+      start_pos += 1
+      current_pos = start_pos
+      sum = 0
+    end
+  end
+
+  numbers[start_pos, current_pos - start_pos]
+end
+
+values = find_set(wrong_number, numbers).sort
+
+puts "Day  9.2: result is #{(values.first + values.last).to_s.green}"
