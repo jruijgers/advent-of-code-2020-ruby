@@ -27,3 +27,33 @@ sum = 0
 invalid_ticket_values.each { |v| sum += v }
 
 puts "Day 16.1: sum of invalid tickets values is #{sum.to_s.green}"
+
+valid_tickets = nearby_tickets.select { |t| t.valid?(rules) }
+valid_positions = []
+(1..rules.length).each { |_i| valid_positions << rules.dup }
+
+valid_tickets.each do |ticket|
+  valid_positions.each_index do |index|
+    valid_positions[index] = ticket.valid_rules(index, valid_positions[index])
+  end
+end
+
+while valid_positions.select { |r| r.length > 1 }.length > 0
+  valid_positions.select { |r| r.length == 1 }.each do |rules|
+    valid_positions.each_index do |i|
+      next if valid_positions[i].length == 1
+
+      valid_positions[i] -= rules
+    end
+  end
+end
+
+result = 1
+rule_positions = valid_positions.flatten
+rule_positions.each_index do |index|
+  next unless rule_positions[index].name.include?("departure")
+
+  result *= my_ticket.value(index)
+end
+
+puts "Day 16.2: product of departure values is #{result.to_s.green}"

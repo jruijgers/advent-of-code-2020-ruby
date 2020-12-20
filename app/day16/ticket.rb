@@ -4,6 +4,10 @@ module Day16
       @values = values.split(",").map { |v| v.to_i }
     end
 
+    def value(index)
+      @values[index]
+    end
+
     def valid?(rules)
       valid = true
 
@@ -16,6 +20,15 @@ module Day16
       end
 
       valid
+    end
+
+    def valid_rules(position, rules)
+      invalid_rules = []
+      rules.each do |rule|
+        invalid_rules << rule unless rule.valid?(@values[position])
+      end
+
+      rules - invalid_rules
     end
 
     def invalid_values(rules)

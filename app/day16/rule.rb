@@ -1,5 +1,7 @@
 module Day16
   class Rule
+    attr_reader :name
+
     def self.parse(rule)
       parts = rule.split(": ")
 
@@ -13,6 +15,7 @@ module Day16
     def initialize(name, ranges)
       @name = name
       @ranges = ranges
+      @position = nil
     end
 
     def valid?(value)
