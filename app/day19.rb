@@ -28,6 +28,14 @@ class Rule
       else
         @elements.first.each { |r| expression += @rules[r.to_i].to_re }
       end
+    elsif @rules[8] == self || @rules[11] == self
+      expression += "("
+      @elements[1].each do |r|
+        next if @rules[r.to_i] == self
+        expression += @rules[r.to_i].to_re
+        expression += "+"
+      end
+      expression += ")"
     else
       expression += "("
       @elements.each_index do |i|
@@ -57,7 +65,15 @@ File.open("../input/day19.txt").each do |line|
 end
 
 re = rules[0].to_re
-
-valid_messages =  messages.select { |m| m.match(/^#{re}$/) }
+valid_messages = messages.select { |m| m.match(/^#{re}$/) }
 
 puts "Day 19.1: number of valid messages is #{valid_messages.length.to_s.green}"
+
+rules[8] = Rule.parse("42 | 42 8", rules)
+rules[11] = Rule.parse("42 31 | 42 11 31", rules)
+
+re = rules[0].to_re
+valid_messages = messages.select { |m| m.match(/^#{re}$/) }
+
+# must be lower than 413
+puts "Day 19.2: number of valid messages is #{valid_messages.length.to_s.green} (413 is wrong, to high)"
