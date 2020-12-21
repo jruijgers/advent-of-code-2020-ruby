@@ -1,6 +1,7 @@
 require "colorize"
 require "./day18/operation"
 require "./day18/simple_operation"
+require "./day18/advanced_operation"
 
 lines = []
 File.open("../input/day18.txt").each { |l| lines << l.strip }
@@ -17,4 +18,13 @@ lines.each do |line|
   sum += operation.calculate
 end
 
-puts "Day 18.1: sum of homework is #{sum.to_s.green}"
+puts "Day 18.1: sum of simple homework is #{sum.to_s.green}"
+
+sum = 0
+lines.each do |line|
+  operation = Day18::AdvancedOperation.parse(line)
+  value = operation.calculate
+  sum += value
+end
+
+puts "Day 18.2: sum of advanced homework is #{sum.to_s.green}"

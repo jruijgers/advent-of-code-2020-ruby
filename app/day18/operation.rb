@@ -1,5 +1,7 @@
 module Day18
   class Operation
+    attr_accessor :operator, :left, :right
+
     def initialize(operator, left, right)
       @operator = operator
       @left = left
