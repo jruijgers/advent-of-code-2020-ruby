@@ -30,8 +30,7 @@ class Rule
       end
     elsif @rules[8] == self || @rules[11] == self
       expression += "("
-      @elements[1].each do |r|
-        next if @rules[r.to_i] == self
+      @elements[0].each do |r|
         expression += @rules[r.to_i].to_re
         expression += "+"
       end
@@ -71,6 +70,9 @@ puts "Day 19.1: number of valid messages is #{valid_messages.length.to_s.green}"
 
 rules[8] = Rule.parse("42 | 42 8", rules)
 rules[11] = Rule.parse("42 31 | 42 11 31", rules)
+
+puts rules[8].to_re
+puts rules[11].to_re
 
 re = rules[0].to_re
 valid_messages = messages.select { |m| m.match(/^#{re}$/) }
