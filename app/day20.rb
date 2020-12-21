@@ -210,23 +210,18 @@ while tiles_to_orient.length > 0
   tile.orient_neighbours
   oriented_tiles << tile
 
-  tile.neighbours.each do |n|
-    tiles_to_orient << n unless oriented_tiles.include?(n) || tiles_to_orient.include?(n)
-  end
+  tile.neighbours.reject {|t| oriented_tiles.include?(t) || tiles_to_orient.include?(t) }.each { |n| tiles_to_orient << n }
 end
 
 image = []
-top_left_tile = tiles.select { |t| t.top_left_tile? }.first
-bottom = top_left_tile
+bottom = tiles.select { |t| t.top_left_tile? }.first
 begin
   image_line = image.length
   (0..7).each { |l| image[image_line + l] = [] }
   left = bottom
   begin
     data = left.data
-    (0..7).each do |l|
-      image[image_line + l] << data[l + 1][1, 8]
-    end
+    (0..7).each { |l| image[image_line + l] << data[l + 1][1, 8] }
     left = left.left_neighbour
   end while left
   bottom = bottom.bottom_neighbour
@@ -244,25 +239,17 @@ sea_monster = [[0, 18], [1, 0], [1, 5], [1, 6], [1, 11], [1, 12], [1, 17], [1, 1
 contains_sea_monsters = false
 attempts = 0
 begin
-  x = 0
-  while x < image_tile.data.length - 3
-    y = 0
-    while y < image_tile.data[0].length - 20
+  (0..(image_tile.data.length - 3)).each do |x|
+    (0..(image_tile.data[0].length - 20)).each do |y|
       contains_sea_monster = true
-      sea_monster.each do |sm|
-        contains_sea_monster &= image_tile.data[x + sm[0]][y + sm[1]] == "#"
-      end
+      sea_monster.each { |sm| contains_sea_monster &= image_tile.data[x + sm[0]][y + sm[1]] == "#" }
 
       if contains_sea_monster
         contains_sea_monsters = true
 
-        sea_monster.each do |sm|
-          image_tile.data[x + sm[0]][y + sm[1]] = "O"
-        end
+        sea_monster.each { |sm| image_tile.data[x + sm[0]][y + sm[1]] = "O" }
       end
-      y += 1
     end
-    x += 1
   end
   image_tile.turn_right unless contains_sea_monsters
   attempts += 1
