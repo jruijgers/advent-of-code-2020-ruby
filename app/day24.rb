@@ -65,6 +65,8 @@ end
 count_black_tiles = tiles.select { |_k, v| v.black? }.count
 puts "Day 24.1: there are #{count_black_tiles.to_s.green} black tiles"
 
+tiles = tiles.select { |_k, t| t.black? }
+
 rounds = 0
 while rounds < 100
   rounds += 1
@@ -92,7 +94,7 @@ while rounds < 100
       count_black_tiles += 1 if tiles[[x + 1, y - 1]]&.black?
 
       tile = tiles[[x, y]] || Tile.new
-      tiles_to_flip[[x, y]] = tile if tile.black? && count_black_tiles != 1
+      tiles_to_flip[[x, y]] = tile if tile.black? && (count_black_tiles == 0 || count_black_tiles > 2)
       tiles_to_flip[[x, y]] = tile if tile.white? && count_black_tiles == 2
     end
   end
@@ -102,6 +104,8 @@ while rounds < 100
 
     tiles[location] = tile
   end
+
+  tiles = tiles.select { |_k, t| t.black? }
 end
 
-puts "Day 24.2: after 100 days there are #{tiles.select {|_k, v| v.black? }.count.to_s.green} black tiles"
+puts "Day 24.2: after 100 days there are #{tiles.count.to_s.green} black tiles"
