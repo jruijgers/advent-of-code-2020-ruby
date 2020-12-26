@@ -21,3 +21,4 @@ require "./day20"
 # require "./day22" # takes to long to run
 require "./day23"
 require "./day24"
+require "./day25"
